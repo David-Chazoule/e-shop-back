@@ -31,7 +31,8 @@ const handleGetOne = async (req, res) => {
 const handleAuthenticate = async (req, res) => {
   const token = await authentication(req.body);
   res.set('accessToken', token)
-  res.status(204).send()
+  res.set('Access-control-Expose-Headers', 'token')
+  res.status(200).send()
 }
 
 module.exports = {

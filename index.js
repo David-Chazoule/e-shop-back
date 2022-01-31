@@ -1,25 +1,34 @@
-require('dotenv').config();
-const mysql = require('./db');
-const {URL_CLIENT}=process.env.URL_CLIENT;
-const express = require('express');
+require("dotenv").config();
+const mysql = require("./db");
+const { URL_CLIENT } = process.env.URL_CLIENT;
+const express = require("express");
 const PORT = process.env.PORT;
+const handleRecordNotFoundError = require("./middlewares/handleRecordNotFoundError");
+const handleUserAlreadyExistError = require("./middlewares/handleUserAlreadyExistError");
+const handleUnauthorizedError = require("./middlewares/handleUnauthorizedError");
+const handleInternalServerError = require("./middlewares/handleInternalServerError");
 
 const app = express();
-const cors = require('cors');
+const cors = require("cors");
 
-app.use(cors(URL_CLIENT))
+app.use(cors(URL_CLIENT));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-require('./routes/routes')(app)
+app.use(handleRecordNotFoundError);
+app.use(handleUserAlreadyExistError);
+app.use(handleUnauthorizedError);
+app.use(handleInternalServerError);
+
+require("./routes/routes")(app);
 
 mysql.connect((err) => {
   if (err) {
-    console.error('error connecting to the db' + err.stack);
+    console.error("error connecting to the db" + err.stack);
   } else {
-    console.log('connected to the db');
+    console.log("connected to the db");
   }
-})
+});
 
 // mysql.promise()
 
@@ -27,7 +36,7 @@ mysql.connect((err) => {
 
 //   mysql.promise().query(`SELECT * FROM product`)
 //     .then(result => {
-     
+
 //       return res.status(200).json(result[0])
 
 //     })
@@ -36,7 +45,6 @@ mysql.connect((err) => {
 //       res.status(500).send('internal server error')
 //     })
 // })
-
 
 // app.get('/product/:id', (req, res) => {
 //   const { id } = req.params;
@@ -58,8 +66,6 @@ mysql.connect((err) => {
 
 // })
 
-
-
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
-})
+});

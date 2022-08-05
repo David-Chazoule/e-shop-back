@@ -4,13 +4,14 @@ const {
   createOne,
   authentication,
   getUserInfo,
-  getOneByEmail
+  getOneByEmail,
+  patchUserInfo,
 } = require("../models/user");
 
 const handlePost = async (req, res) => {
   try {
     const result = await createOne(req.body);
-    
+
     res.status(201).json(result[0]);
   } catch {
     res.status(500).send();
@@ -30,10 +31,10 @@ const handleGetOne = async (req, res) => {
 const handleAuthenticate = async (req, res) => {
   const token = await authentication(req.body);
   const [userInfo] = await getOneByEmail(req.body.email);
-  delete userInfo.password
+  delete userInfo.password;
   res.set("AccessToken", token);
   res.set("Access-control-Expose-Headers", "AccessToken");
-  res.status(200).json( userInfo);
+  res.status(200).json(userInfo);
 };
 
 const handleUserInfo = async (req, res) => {
@@ -42,10 +43,17 @@ const handleUserInfo = async (req, res) => {
   res.status(200).json(result);
 };
 
+// const handleUpdateUserInfo = async (req, res) => {
+
+//   const result = await patchUserInfo(req.body, req.params.id);
+//   res.status(201).json(result);
+// }
+
 module.exports = {
   handlePost,
   handleGetAll,
   handleGetOne,
   handleAuthenticate,
   handleUserInfo,
+  // handleUpdateUserInfo,
 };

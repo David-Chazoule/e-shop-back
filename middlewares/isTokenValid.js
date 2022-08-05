@@ -6,7 +6,7 @@ const isTokenValid = (req, res, next) => {
     res.status(401).send("Unauthorized");
   } else {
     const token = req.headers.authorization.split("")[1];
-    jwt.verify(Token, secret, (err, decoded) => {
+    jwt.verify(token, secret, (err, decoded) => {
       if (err) {
         throw new Error();
       } else {

@@ -79,7 +79,7 @@ const createToken = (userId) => {
 const authentication = async (body) => {
   const user = await getOneByEmail(body.email);
   if (!user.length) {
-    throw new RecordNotFoundError;
+    throw new RecordNotFoundError();
   } else {
     const passwordIsValid = await verifyPassword(
       user[0].password,
@@ -99,6 +99,13 @@ const getUserInfo = async (token) => {
   // const userInfo = await getOneById()
 };
 
+// const patchUserInfo = async (body, id) => {
+//  console.log(`UPDATE user SET firstname = ${body.firstname}, lastname = ${body.lastname}, adress =${body.adress}, city = ${body.city}, postalcode=${body.postalcode}, phone = ${body.phone} WHERE id = ${id} `)
+//    await mysql.query(`UPDATE user SET firstname = ${body.firstname}, lastname = ${body.lastname}, adress =${body.adress}, city = ${body.city}, postalcode=${body.postalcode}, phone = ${body.phone} WHERE id = ${id} `)
+//   const result = await getOneById(body.id);
+//     return result;
+// }
+
 module.exports = {
   getOneById,
   createOne,
@@ -106,4 +113,5 @@ module.exports = {
   authentication,
   getUserInfo,
   getOneByEmail,
+  // patchUserInfo,
 };

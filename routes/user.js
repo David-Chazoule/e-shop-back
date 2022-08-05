@@ -1,12 +1,12 @@
 const router = require("express").Router();
-const asyncHander = require("express-async-handler");
+const asyncHandler = require("express-async-handler");
 const userController = require("../controllers/user");
 const isTokenValid = require("../middlewares/isTokenValid");
 
-router.get("/", isTokenValid, asyncHander(userController.handleGetAll));
-router.post("/", asyncHander(userController.handlePost));
-router.get("/:id", isTokenValid, asyncHander(userController.handleGetOne));
-router.post("/login", asyncHander(userController.handleAuthenticate));
-router.post("/me", isTokenValid, asyncHander(userController.handleUserInfo));
-
+router.get("/", isTokenValid, asyncHandler(userController.handleGetAll));
+router.post("/", asyncHandler(userController.handlePost));
+router.get("/:id", isTokenValid, asyncHandler(userController.handleGetOne));
+router.post("/login", asyncHandler(userController.handleAuthenticate));
+router.post("/me", isTokenValid, asyncHandler(userController.handleUserInfo));
+// router.patch("/:id", asyncHandler(userController.handleUpdateUserInfo));
 module.exports = router;

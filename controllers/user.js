@@ -13,8 +13,8 @@ const handlePost = async (req, res) => {
     const result = await createOne(req.body);
 
     res.status(201).json(result[0]);
-  } catch {
-    res.status(500).send();
+  } catch (e) {
+    throw e;
   }
 };
 
@@ -43,11 +43,10 @@ const handleUserInfo = async (req, res) => {
   res.status(200).json(result);
 };
 
-// const handleUpdateUserInfo = async (req, res) => {
-
-//   const result = await patchUserInfo(req.body, req.params.id);
-//   res.status(201).json(result);
-// }
+const handleUpdateUserInfo = async (req, res) => {
+  const result = await patchUserInfo(req.body, req.params.id);
+  res.status(201).json(result);
+};
 
 module.exports = {
   handlePost,
@@ -55,5 +54,5 @@ module.exports = {
   handleGetOne,
   handleAuthenticate,
   handleUserInfo,
-  // handleUpdateUserInfo,
+  handleUpdateUserInfo,
 };

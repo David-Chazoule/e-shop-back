@@ -37,6 +37,16 @@ const getOneById = async (id) => {
   }
 };
 
+const getAllInfosById = async (id) => {
+  const [[result]] = await mysql.query(`SELECT * FROM user WHERE id = ?`, [id]);
+  if (result) {
+    delete result.password;
+    return result;
+  } else {
+    throw new RecordNotFoundError();
+  }
+};
+
 const createOne = async (body) => {
   const userAlreadyExist = await getOneByEmail(body.email);
 
@@ -96,15 +106,15 @@ const authentication = async (body) => {
 const getUserInfo = async (token) => {
   const decodedToken = jwt_decode(token);
   console.log(decodedToken);
-  // const userInfo = await getOneById()
 };
 
-// const patchUserInfo = async (body, id) => {
-//  console.log(`UPDATE user SET firstname = ${body.firstname}, lastname = ${body.lastname}, adress =${body.adress}, city = ${body.city}, postalcode=${body.postalcode}, phone = ${body.phone} WHERE id = ${id} `)
-//    await mysql.query(`UPDATE user SET firstname = ${body.firstname}, lastname = ${body.lastname}, adress =${body.adress}, city = ${body.city}, postalcode=${body.postalcode}, phone = ${body.phone} WHERE id = ${id} `)
-//   const result = await getOneById(body.id);
-//     return result;
-// }
+const patchUserInfo = async (body, id) => {
+  await mysql.query(
+    `UPDATE user SET firstname = '${body.firstname}', lastname = '${body.lastname}', adress = '${body.adress}', city = '${body.city}', postalcode='${body.postalcode}', phone = '${body.phone}' WHERE id = '${id}'`
+  );
+  const result = await getAllInfosById(id);
+  return result;
+};
 
 module.exports = {
   getOneById,
@@ -113,5 +123,5 @@ module.exports = {
   authentication,
   getUserInfo,
   getOneByEmail,
-  // patchUserInfo,
+  patchUserInfo,
 };

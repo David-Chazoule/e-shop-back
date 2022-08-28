@@ -30,42 +30,6 @@ mysql.connect((err) => {
   }
 });
 
-// mysql.promise()
-
-// app.get('/product', (req, res) => {
-
-//   mysql.promise().query(`SELECT * FROM product`)
-//     .then(result => {
-
-//       return res.status(200).json(result[0])
-
-//     })
-//     .catch(err => {
-//       console.error(err)
-//       res.status(500).send('internal server error')
-//     })
-// })
-
-// app.get('/product/:id', (req, res) => {
-//   const { id } = req.params;
-//   const sql = `SELECT * FROM product WHERE id = ?`
-
-//   mysql.promise().query(sql, [id])
-//     .then(result => {
-//       if (result[0].length) {
-//         return res.status(200).json(result[0])
-//       } else {
-//         res.status(404).send('ressource not found')
-//       }
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).send('internal server error')
-
-//     })
-
-// })
-
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });

@@ -2,11 +2,13 @@ const mysql = require("../db");
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 const secret = process.env.SECRET;
+
 const {
   RecordNotFoundError,
   UserAlreadyExistError,
   UnauthorizedError,
 } = require("../error-types");
+
 const jwt_decode = require("jwt-decode");
 
 const getAll = async () => {

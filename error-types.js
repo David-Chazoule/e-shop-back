@@ -1,9 +1,9 @@
 class RecordNotFoundError extends Error {}
 class UserAlreadyExistError extends Error {
-  constructor(args){
+  constructor(args) {
     super(args);
-    this.status = 400
-    this.message = 'User Already exist'
+    this.status = 400;
+    this.message = "User Already exist";
   }
 }
 class UnauthorizedError extends Error {}

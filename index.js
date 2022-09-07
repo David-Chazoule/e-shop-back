@@ -15,12 +15,12 @@ app.use(cors(URL_CLIENT));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+require("./routes/routes")(app);
+
 app.use(handleRecordNotFoundError);
 app.use(handleUserAlreadyExistError);
 app.use(handleUnauthorizedError);
 app.use(handleInternalServerError);
-
-require("./routes/routes")(app);
 
 mysql.connect((err) => {
   if (err) {

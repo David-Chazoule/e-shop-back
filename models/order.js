@@ -22,9 +22,10 @@ const getAllOrderByUser = async (id) => {
       }
       if(prev.length && prev[prev.length -1].orderId === curr.order_id) {
         prev[prev.length -1].products.push({
-          product,
-          price: prev[prev.length -1].price + (curr.price*curr.productQty)
+          ...product,
+          price: curr.price*curr.productQty
         })
+        prev[prev.length-1].price += (curr.price * curr.productQty)
       } else {
         prev.push({
           orderId: curr.order_id,

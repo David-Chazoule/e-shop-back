@@ -35,5 +35,6 @@ Here's an overview of the project structure:
 - `middlewares/`: directory contains middleware functions that handle request and response processing, such as error handling.
 - `models/`:  directory defines database interactions. It contains functions for querying and manipulating data in the database.
 - `routes/`: directory defines the application's routes and maps them to the corresponding controller functions.
+- `db/`: Directory contains data files. This includes SQL files with the initial data. These files are used to populate the database with necessary data.
 
 
